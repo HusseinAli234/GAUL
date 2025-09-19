@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 8000
 
 # Запускаем Gunicorn (замени project_name на название твоего Django проекта)
-CMD ["gunicorn", "project_name.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "lingua_market.wsgi:application", "--bind", "0.0.0.0:8000"]
