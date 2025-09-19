@@ -5,8 +5,13 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'your-secret-key-here'
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['gaul.pp.ua']
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://gaul.pp.ua",
+    "https://www.gaul.pp.ua",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
