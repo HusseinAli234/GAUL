@@ -4,7 +4,7 @@ services:
   web:
     build: .
     container_name: django_app
-    command: gunicorn project_name.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn lingua_market.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app
       - ./db.sqlite3:/app/db.sqlite3
