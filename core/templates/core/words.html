@@ -1,0 +1,89 @@
+<!-- core/templates/core/words.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container" style="margin: 2rem auto;">
+    <h1 class="text-center mb-4" style="color: #B220FC;">All Words</h1>
+    
+    <!-- Search and Filter -->
+    <div class="card mb-4">
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <input type="text" placeholder="Search words..." style="flex: 1; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+            <select style="padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+                <option>Sort by: Price</option>
+                <option>Sort by: Name</option>
+                <option>Sort by: Changes</option>
+            </select>
+            <button class="btn btn-primary">Search</button>
+        </div>
+    </div>
+
+    <!-- Words Grid -->
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        {% for word in words %}
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <h3 style="color: #20FC86; margin: 0;">{{ word.name }}</h3>
+                <span style="background: #B220FC; color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.875rem;">
+                    ${{ word.price }}
+                </span>
+            </div>
+            
+            <p style="color: #64748b; margin-bottom: 0.5rem;">
+                <strong>Current name:</strong> {{ word.current_name }}
+            </p>
+            
+            <p style="color: #64748b; margin-bottom: 0.5rem;">
+                <strong>Owner:</strong> 
+                {% if word.owner %}
+                    {{ word.owner.first_name }} {{ word.owner.last_name }}
+                {% else %}
+                    Available
+                {% endif %}
+            </p>
+            
+            <p style="color: #64748b; margin-bottom: 1rem;">
+                <strong>Changes:</strong> {{ word.change_count }}
+            </p>
+            
+            {% if user.is_authenticated %}
+                {% if word.owner.user != user %}
+                    <a href="{% url 'buy_word' word.id %}" class="btn btn-primary" style="width: 100%;">
+                        Buy Word
+                    </a>
+                {% else %}
+                    <button class="btn" style="width: 100%; background: #e2e8f0; color: #64748b; cursor: not-allowed;">
+                        You Own This
+                    </button>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-secondary" style="width: 100%;">
+                    Login to Buy
+                </a>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="card text-center" style="grid-column: 1 / -1; padding: 3rem;">
+            <p style="color: #64748b; font-size: 1.25rem;">No words available yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Pagination -->
+<div style="margin-top: 2rem; display: flex; justify-content: center; gap: 0.5rem;">
+    {% if page_obj.has_previous %}
+        <a href="?page=1" class="btn btn-secondary">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">Previous</a>
+    {% endif %}
+
+    <span style="padding: 0.5rem 1rem; border: 1px solid #e2e8f0; border-radius: 0.25rem;">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-secondary">Last</a>
+    {% endif %}
+</div>
+
+{% endblock %}

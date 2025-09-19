@@ -1,0 +1,55 @@
+<!-- core/templates/core/register.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 400px; margin: 4rem auto;">
+    <div class="card">
+        <h2 class="text-center mb-4" style="color: #B220FC;">Register</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: #334155;">First Name *</label>
+                <input type="text" name="first_name" required style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: #334155;">Last Name *</label>
+                <input type="text" name="last_name" required style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: #334155;">Phone Number</label>
+                <input type="tel" name="phone_number" placeholder="+1234567890" style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: #334155;">Telegram Username</label>
+                <input type="text" name="telegram_username" placeholder="@username" style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: #334155;">Email *</label>
+                <input type="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: #334155;">Username *</label>
+                <input type="text" name="username" required style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: #334155;">Password *</label>
+                <input type="password" name="password" required style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+        </form>
+        
+        <p class="text-center mt-4" style="color: #64748b;">
+            Already have an account? <a href="{% url 'login' %}" style="color: #B220FC;">Login here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!-- core/templates/registration/login.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 400px; margin: 4rem auto;">
+    <div class="card">
+        <h2 class="text-center mb-4" style="color: #B220FC;">Login</h2>
+        
+        {% if form.errors %}
+        <div style="background: #fee2e2; color: #dc2626; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+            Invalid username or password. Please try again.
+        </div>
+        {% endif %}
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: #334155;">Username</label>
+                <input type="text" name="username" required style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: #334155;">Password</label>
+                <input type="password" name="password" required style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+        </form>
+        
+        <p class="text-center mt-4" style="color: #64748b;">
+            Don't have an account? <a href="{% url 'register' %}" style="color: #B220FC;">Register here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

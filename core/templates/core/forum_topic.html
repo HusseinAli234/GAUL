@@ -1,0 +1,65 @@
+<!-- core/templates/core/forum_topic.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin: 2rem auto;">
+    <!-- Topic Header -->
+    <div class="card mb-4">
+        <h1 style="color: #B220FC; margin-bottom: 1rem;">{{ topic.title }}</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; color: #64748b;">
+            <span>Started by: {{ topic.created_by.first_name }} {{ topic.created_by.last_name }}</span>
+            <span>{{ topic.created_at|date:"F j, Y, g:i a" }}</span>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    <div style="margin-bottom: 2rem;">
+        {% for message in messages %}
+        <div class="card mb-3">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <div>
+                    <strong style="color: #20FC86;">{{ message.author.first_name }} {{ message.author.last_name }}</strong>
+                    <span style="color: #64748b; margin-left: 1rem;">@{{ message.author.user.username }}</span>
+                </div>
+                <span style="color: #64748b; font-size: 0.875rem;">
+                    {{ message.created_at|date:"M j, g:i a" }}
+                </span>
+            </div>
+            <p style="color: #334155; line-height: 1.6;">{{ message.content }}</p>
+        </div>
+        {% empty %}
+        <div class="card text-center" style="padding: 2rem;">
+            <p style="color: #64748b;">No messages yet. Be the first to reply!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Reply Form -->
+    {% if user.is_authenticated %}
+    <div class="card">
+        <h3 style="color: #B220FC; margin-bottom: 1rem;">Post a Reply</h3>
+        <form>
+            <textarea 
+                placeholder="Write your message here..." 
+                style="width: 100%; min-height: 120px; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; margin-bottom: 1rem;"
+            ></textarea>
+            <button type="button" class="btn btn-primary" onclick="alert('Reply functionality coming soon!')">
+                Post Reply
+            </button>
+        </form>
+    </div>
+    {% else %}
+    <div class="card text-center">
+        <p style="color: #64748b; margin-bottom: 1rem;">Please log in to participate in the discussion.</p>
+        <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+    </div>
+    {% endif %}
+
+    <!-- Back to Forum -->
+    <div class="text-center mt-4">
+        <a href="{% url 'forum' %}" class="btn" style="background: #e2e8f0; color: #64748b;">
+            ← Back to Forum
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+<!-- core/templates/core/index.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="text-center mt-4 mb-4">
+        <h1 style="font-size: 3rem; font-weight: 700; color: #B220FC; margin-bottom: 1rem;">
+            Welcome to GAUL
+        </h1>
+        <p style="font-size: 1.25rem; color: #64748b; max-width: 600px; margin: 0 auto;">
+            A revolutionary platform where you can buy, sell, and rename words in our new language ecosystem.
+        </p>
+        <a href="{% url 'register' %}" class="btn btn-primary mt-4">Get Started</a>
+    </section>
+
+    <!-- How it works -->
+    <section class="mb-4">
+        <h2 class="text-center mb-4" style="font-size: 2rem; color: #334155;">How it works?</h2>
+        <div class="grid grid-3 gap-4">
+            <div class="card text-center">
+                <h3 style="color: #B220FC; margin-bottom: 1rem;">1. Registration</h3>
+                <p>Register and get $1000 in your balance to start your word trading journey.</p>
+            </div>
+            <div class="card text-center">
+                <h3 style="color: #B220FC; margin-bottom: 1rem;">2. Buy Words</h3>
+                <p>Choose any word you love and become its proud owner by purchasing it.</p>
+            </div>
+            <div class="card text-center">
+                <h3 style="color: #B220FC; margin-bottom: 1rem;">3. Rename</h3>
+                <p>Give your word a new name and leave your mark in linguistic history.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example Words -->
+    <section class="mb-4">
+        <h2 class="text-center mb-4" style="font-size: 2rem; color: #334155;">Example Words</h2>
+        <div class="grid grid-3 gap-4">
+            {% for word in words %}
+            <div class="card">
+                <h3 style="color: #20FC86; margin-bottom: 0.5rem;">{{ word.name }}</h3>
+                <p style="color: #64748b; font-size: 1.1rem;">Current: {{ word.current_name }}</p>
+                <p style="color: #B220FC;">Owner: {% if word.owner %}{{ word.owner.first_name }} {{ word.owner.last_name }}{% else %}Available{% endif %}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'words_list' %}" class="btn btn-secondary">View All Words</a>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="mb-4">
+        <h2 class="text-center mb-4" style="font-size: 2rem; color: #334155;">What Users Say</h2>
+        <div class="grid grid-3 gap-4">
+            <div class="card">
+                <p>"GAUL is a new way to play with language."</p>
+                <p style="color: #B220FC; margin-top: 1rem;">— @User1</p>
+            </div>
+            <div class="card">
+                <p>"Revolutionary concept for language enthusiasts!"</p>
+                <p style="color: #B220FC; margin-top: 1rem;">— @User2</p>
+            </div>
+            <div class="card">
+                <p>"The perfect blend of linguistics and economics."</p>
+                <p style="color: #B220FC; margin-top: 1rem;">— @User3</p>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'forum' %}" class="btn btn-secondary">Visit Forum</a>
+        </div>
+    </section>
+</div>
+{% endblock %}

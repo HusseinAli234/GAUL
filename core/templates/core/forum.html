@@ -1,0 +1,67 @@
+<!-- core/templates/core/forum.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container" style="margin: 2rem auto;">
+    <h1 class="text-center mb-4" style="color: #B220FC;">Community Forum</h1>
+    
+    <!-- Create New Topic Button -->
+    {% if user.is_authenticated %}
+    <div class="text-center mb-4">
+        <button class="btn btn-primary" onclick="alert('Topic creation functionality coming soon!')">
+            Create New Topic
+        </button>
+    </div>
+    {% endif %}
+
+    <!-- Topics List -->
+    <div class="grid" style="gap: 1rem;">
+        {% for topic in topics %}
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <h3 style="color: #20FC86; margin: 0;">{{ topic.title }}</h3>
+                <span style="color: #64748b; font-size: 0.875rem;">
+                    {{ topic.created_at|date:"M d, Y" }}
+                </span>
+            </div>
+            
+            <p style="color: #64748b; margin-bottom: 1rem;">
+                Started by: {{ topic.created_by.first_name }} {{ topic.created_by.last_name }}
+            </p>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #B220FC;">
+                    {{ topic.forummessage_set.count }} messages
+                </span>
+                <a href="{% url 'forum_topic' topic.id %}" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                    View Topic
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="card text-center" style="padding: 3rem;">
+            <p style="color: #64748b; font-size: 1.25rem;">No topics yet. Be the first to start a discussion!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="mt-8">
+        <h2 class="text-center mb-4" style="color: #334155;">What Our Community Says</h2>
+        <div class="grid grid-3 gap-4">
+            <div class="card">
+                <p>"LinguaMarket is a new way to play with language. The possibilities are endless!"</p>
+                <p style="color: #B220FC; margin-top: 1rem;">— @LanguageLover</p>
+            </div>
+            <div class="card">
+                <p>"I've never seen anything like this before. Buying and renaming words is so addictive!"</p>
+                <p style="color: #B220FC; margin-top: 1rem;">— @WordWizard</p>
+            </div>
+            <div class="card">
+                <p>"The community here is amazing. So many creative people redefining language together."</p>
+                <p style="color: #B220FC; margin-top: 1rem;">— @CreativeMind</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
